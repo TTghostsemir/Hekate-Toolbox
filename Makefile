@@ -32,10 +32,10 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 VERSION_MAJOR := 4
 VERSION_MINOR := 0
-VERSION_MICRO := 2
+VERSION_MICRO := 2-de
 
 APP_TITLE	:=	Hekate Toolbox
-APP_AUTHOR	:=	WerWolv, cathery
+APP_AUTHOR	:=	WerWolv, cathery Forked by TT-ghost_semir
 APP_VERSION	:=	${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}
 
 TARGET		:=	HekateToolbox

@@ -43,9 +43,9 @@ void GuiOverridesMenu::draw() {
     Gui::drawRectangle((u32)((Gui::g_framebuffer_width - 1220) / 2), 87, 1220, 1, currTheme.textColor);
     Gui::drawRectangle((u32)((Gui::g_framebuffer_width - 1220) / 2), Gui::g_framebuffer_height - 73, 1220, 1, currTheme.textColor);
     Gui::drawTextAligned(fontIcons, 70, 68, currTheme.textColor, "\uE130", ALIGNED_LEFT);
-    Gui::drawTextAligned(font24, 70, 58, currTheme.textColor, "        Application override settings", ALIGNED_LEFT);
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 25, currTheme.textColor, "\uE0E2 Delete     \uE0E1 Back     \uE0E0 OK", ALIGNED_RIGHT);
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 150, currTheme.textColor, "Add key override options for each title. \n Opening that title while holding that key combination will override it with hbmenu.", ALIGNED_CENTER);
+    Gui::drawTextAligned(font24, 70, 58, currTheme.textColor, "        Einstellungen zum Overriden der Anwendung", ALIGNED_LEFT);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 25, currTheme.textColor, "\uE0E2 Loeschen     \uE0E1 Zurueck     \uE0E0 OK", ALIGNED_RIGHT);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 150, currTheme.textColor, "Fuegen sie fuer jedes Titel eine eigene Override Taste hinzu. \n Wenn Sie den Titel oeffnen, waehrend Sie diese Tastenkombination gedrueckt halten, wird es durch das hbmenu ueberschrieben.", ALIGNED_CENTER);
 
     drawButtons();
     Gui::endDraw();
@@ -63,7 +63,7 @@ void GuiOverridesMenu::onInput(u32 kdown) {
         auto buttonType = std::get<0>(tuple);
         auto keyType = std::get<1>(tuple);
         if (buttonType != OverrideButtonType::Add_New) {
-            (new MessageBox("Are you sure you want to delete this setting?", MessageBox::YES_NO))
+            (new MessageBox("Bist du dir Sicher das du die Einstellung loeschen willst?", MessageBox::YES_NO))
                 ->setSelectionAction([&, keyType](s8 selectedItem) {
                     if (selectedItem == MessageBox::BUTTON_YES) {
                         //Parse INI file and remove any occurences of wanted options
@@ -131,7 +131,7 @@ void GuiOverridesMenu::addButton(OverrideButtonType buttonType, OverrideKeyType 
         case OverrideButtonType::Any_Title:
             drawAction = [&](Gui *gui, u16 x, u16 y, bool *isActivated) {
                 gui->drawTextAligned(fontHuge, x + 100, y + 150, currTheme.textColor, "\uE135", ALIGNED_CENTER);
-                gui->drawTextAligned(font24, x + 100, y + 285, currTheme.textColor, "Any title", ALIGNED_CENTER);
+                gui->drawTextAligned(font24, x + 100, y + 285, currTheme.textColor, "Jeden Belibigen title", ALIGNED_CENTER);
             };
             break;
         case OverrideButtonType::Custom_Title:
@@ -151,13 +151,13 @@ void GuiOverridesMenu::addButton(OverrideButtonType buttonType, OverrideKeyType 
                 } else {
                     gui->drawTextAligned(fontHuge, x + 100, y + 150, currTheme.textColor, "\uE06B", ALIGNED_CENTER);
                 }
-                gui->drawTextAligned(font24, x + 100, y + 285, currTheme.textColor, keyType == OverrideKeyType::Default ? "Default" : "Custom title", ALIGNED_CENTER);
+                gui->drawTextAligned(font24, x + 100, y + 285, currTheme.textColor, keyType == OverrideKeyType::Default ? "Standart" : "Custom title", ALIGNED_CENTER);
             };
             break;
         case OverrideButtonType::Add_New:
             drawAction = [&](Gui *gui, u16 x, u16 y, bool *isActivated) {
                 gui->drawTextAligned(fontHuge, x + 100, y + 150, currTheme.unselectedColor, "\uE0F1", ALIGNED_CENTER);
-                gui->drawTextAligned(font24, x + 100, y + 285, currTheme.unselectedColor, "Add...", ALIGNED_CENTER);
+                gui->drawTextAligned(font24, x + 100, y + 285, currTheme.unselectedColor, "Hinzufuegen...", ALIGNED_CENTER);
             };
 
             inputAction = [&](u64 kdown, bool *isActivated) {

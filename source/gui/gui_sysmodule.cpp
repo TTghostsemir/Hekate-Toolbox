@@ -90,7 +90,7 @@ GuiSysmodule::GuiSysmodule() : Gui() {
         sysmoduleButton->volume = {500, 80};
         sysmoduleButton->drawAction = [&](Gui *gui, u16 x, u16 y, bool *isActivated) {
             gui->drawTextAligned(font20, x + 37, y + 50, currTheme.textColor, sysmodule.second.name.c_str(), ALIGNED_LEFT);
-            gui->drawTextAligned(font20, x + 420, y + 50, this->m_runningSysmodules.find(sysmodule.first) != this->m_runningSysmodules.end() ? currTheme.selectedColor : Gui::makeColor(0xB8, 0xBB, 0xC2, 0xFF), this->m_runningSysmodules.find(sysmodule.first) != this->m_runningSysmodules.end() ? "On" : "Off", ALIGNED_LEFT);
+            gui->drawTextAligned(font20, x + 420, y + 50, this->m_runningSysmodules.find(sysmodule.first) != this->m_runningSysmodules.end() ? currTheme.selectedColor : Gui::makeColor(0xB8, 0xBB, 0xC2, 0xFF), this->m_runningSysmodules.find(sysmodule.first) != this->m_runningSysmodules.end() ? "An" : "Aus", ALIGNED_LEFT);
         };
         sysmoduleButton->inputAction = [&](u32 kdown, bool *isActivated) {
             if (kdown & HidNpadButton_A) {
@@ -105,13 +105,13 @@ GuiSysmodule::GuiSysmodule() : Gui() {
                     if (!sysmodule.second.requiresReboot) {
                         pmshellTerminateProgram(tid);
                     } else {
-                        (new MessageBox("This sysmodule requires a reboot to fully work. \n Please restart your console in order use it.", MessageBox::OKAY))->show();
+                        (new MessageBox("Dieses Sysmodul erfordert einen Neustart, um vollstaendig zu funktionieren. \n Bitte starten Sie Ihre Konsole neu, um es zu verwenden.", MessageBox::OKAY))->show();
                     }
 
                     remove(path.str().c_str());
                 } else {
                     if (sysmodule.second.requiresReboot) {
-                        (new MessageBox("This sysmodule requires a reboot to fully work. \n Please restart your console in order use it.", MessageBox::OKAY))->show();
+                        (new MessageBox("Dieses Sysmodul erfordert einen Neustart, um vollstaendig zu funktionieren. \n Bitte starten Sie Ihre Konsole neu, um es zu verwenden.", MessageBox::OKAY))->show();
                         FILE *fptr = fopen(path.str().c_str(), "wb+");
                         if (fptr != nullptr) fclose(fptr);
                     } else {
@@ -177,12 +177,12 @@ void GuiSysmodule::draw() {
     Gui::drawTextAligned(fontIcons, 70, 68, currTheme.textColor, "\uE130", ALIGNED_LEFT);
     Gui::drawTextAligned(font24, 70, 58, currTheme.textColor, "        Hekate Toolbox", ALIGNED_LEFT);
 
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 25, currTheme.textColor, "\uE0E1 Back     \uE0E0 OK", ALIGNED_RIGHT);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 25, currTheme.textColor, "\uE0E1 Zurueck     \uE0E0 OK", ALIGNED_RIGHT);
 
     if (anyModulesPresent)
-        Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 150, currTheme.textColor, "Select the background services (sysmodules) that should be running. \n Because of memory restraints it may be not possible to start all services at once.", ALIGNED_CENTER);
+        Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 150, currTheme.textColor, "Waehlen Sie die Hintergrunddienste (sysmodules) aus, die ausgefuehrt werden sollen. \n Aufgrund von Speicherbeschraenkungen ist es moeglicherweise nicht möglich, alle Dienste gleichzeitig zu starten.", ALIGNED_CENTER);
     else
-        Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 550, currTheme.textColor, "You currently don't have any supported sysmodules installed. To use this \n feature, please install any supported sysmodule as an NSP.", ALIGNED_CENTER);
+        Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 550, currTheme.textColor, "Sie haben derzeit keine unterstuetzten Sysmodule installiert. Um dies zu verwenden \n Funktion zu nutzen, installieren Sie bitte ein beliebiges unterstuetztes Sysmodul als NSP.", ALIGNED_CENTER);
 
     drawButtons();
     Gui::endDraw();
